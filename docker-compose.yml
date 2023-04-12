@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  verdaccio:
+    image: verdaccio/verdaccio
+    container_name: 'verdaccio'
+    restart: always
+    # networks:
+    #   - node-network
+    environment:
+      - VERDACCIO_PORT=4873
+      - VERDACCIO_PUBLIC_URL=http://registry.npm.com/
+    ports:
+      - '4873:4873'
+    volumes:
+      - './storage:/verdaccio/storage'
+      - './conf:/verdaccio/conf'
+      - './plugins:/verdaccio/plugins'
+  nginx:
+    image: nginx:1.23.2
+    depends_on:
+      - verdaccio
+    restart: always
+    volumes:
+      # - './nginx/nginx.conf:/etc/nginx/nginx.conf'
+      - './nginx/conf.d:/etc/nginx/conf.d'
+      # - /nginx/log:/var/log/nginx
+    ports:
+      - 80:80
+# networks:
+#   node-network:
+#     driver: bridge
