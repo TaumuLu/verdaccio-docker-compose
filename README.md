@@ -20,3 +20,7 @@ docker-compose up -d
 ```
 registry=http://registry.npm.com/
 ```
+
+## 链接
+- https://verdaccio.org/
+  - https://verdaccio.org/docs/ssl
